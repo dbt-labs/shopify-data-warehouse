@@ -1,10 +1,5 @@
 # Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/customers
 
-# notes
-# -------------
-# not using: rank, average order value, total order value
-# these metrics are better calculated in looker
-
 view: customers {
 
   sql_table_name: shopify.customers ;;

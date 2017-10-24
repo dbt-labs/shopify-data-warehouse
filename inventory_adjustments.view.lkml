@@ -1,17 +1,55 @@
+# Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/inventory_adjustments
+
 view: inventory_adjustments {
+
   sql_table_name: shopify.inventory_adjustments ;;
+
+  # IDs -------------------------------------------------------------------
 
   dimension: inventory_adjustment_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.inventory_adjustment_id ;;
+    hidden: yes
   }
 
   dimension: api_client_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.api_client_id ;;
   }
+
+  dimension: inventory_item_id {
+    type: number
+    sql: ${TABLE}.inventory_item_id ;;
+    hidden: yes
+  }
+
+  dimension: product_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.product_id ;;
+  }
+
+  dimension: product_variant_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.product_variant_id ;;
+  }
+
+  dimension: shop_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.shop_id ;;
+  }
+
+  dimension: user_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.user_id ;;
+  }
+
+  # Dates -------------------------------------------------------------------
 
   dimension_group: created {
     type: time
@@ -27,22 +65,7 @@ view: inventory_adjustments {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: inventory_item_id {
-    type: number
-    sql: ${TABLE}.inventory_item_id ;;
-  }
-
-  dimension: product_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.product_id ;;
-  }
-
-  dimension: product_variant_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.product_variant_id ;;
-  }
+  # Other -------------------------------------------------------------------
 
   dimension: quantity_after_adjustment {
     type: number
@@ -59,35 +82,8 @@ view: inventory_adjustments {
     sql: ${TABLE}.reason ;;
   }
 
-  dimension: shop_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.shop_id ;;
-  }
+  # Measures -------------------------------------------------------------------
 
-  dimension: user_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.user_id ;;
-  }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
 
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      inventory_adjustment_id,
-      users.last_name,
-      users.first_name,
-      users.user_id,
-      shops.name,
-      shops.shop_id,
-      product_variants.product_variant_id,
-      products.product_id,
-      api_clients.api_client_id
-    ]
-  }
 }

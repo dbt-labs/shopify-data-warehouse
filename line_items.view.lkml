@@ -1,16 +1,115 @@
+# Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/line_items
+
 view: line_items {
+
   sql_table_name: shopify.line_items ;;
+
+  # IDs -------------------------------------------------------------------
 
   dimension: line_item_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.line_item_id ;;
+    hidden: yes
+  }
+
+  dimension: order_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.order_id ;;
+  }
+
+  dimension: shop_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.shop_id ;;
+  }
+
+  dimension: product_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.product_id ;;
+  }
+
+  dimension: product_variant_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.product_variant_id ;;
+  }
+
+  # Product -------------------------------------------------------------------
+
+  dimension: name {
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
+  dimension: title {
+    type: string
+    sql: ${TABLE}.title ;;
+  }
+
+  dimension: variant_title {
+    type: string
+    sql: ${TABLE}.variant_title ;;
+  }
+
+  dimension: sku {
+    type: string
+    sql: ${TABLE}.sku ;;
+  }
+
+  dimension: product_type {
+    type: string
+    sql: ${TABLE}.product_type ;;
   }
 
   dimension: compare_at_price {
     type: number
     sql: ${TABLE}.compare_at_price ;;
   }
+
+  # Dollars -------------------------------------------------------------------
+
+  dimension: price {
+    type: number
+    sql: ${TABLE}.price ;;
+  }
+
+  dimension: taxable {
+    type: yesno
+    sql: ${TABLE}.taxable ;;
+  }
+
+  # Other -------------------------------------------------------------------
+
+  dimension: grams {
+    type: number
+    sql: ${TABLE}.grams ;;
+  }
+
+  dimension: gift_card {
+    type: yesno
+    sql: ${TABLE}.gift_card ;;
+  }
+
+
+  dimension: quantity {
+    type: number
+    sql: ${TABLE}.quantity ;;
+  }
+
+  dimension: requires_shipping {
+    type: yesno
+    sql: ${TABLE}.requires_shipping ;;
+  }
+
+  dimension: vendor {
+    type: string
+    sql: ${TABLE}.vendor ;;
+  }
+
+  # Fulfillment -------------------------------------------------------------------
 
   dimension: fulfillable_quantity {
     type: number
@@ -27,107 +126,4 @@ view: line_items {
     sql: ${TABLE}.fulfillment_status ;;
   }
 
-  dimension: gift_card {
-    type: yesno
-    sql: ${TABLE}.gift_card ;;
-  }
-
-  dimension: grams {
-    type: number
-    sql: ${TABLE}.grams ;;
-  }
-
-  dimension: name {
-    type: string
-    sql: ${TABLE}.name ;;
-  }
-
-  dimension: order_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.order_id ;;
-  }
-
-  dimension: price {
-    type: number
-    sql: ${TABLE}.price ;;
-  }
-
-  dimension: product_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.product_id ;;
-  }
-
-  dimension: product_type {
-    type: string
-    sql: ${TABLE}.product_type ;;
-  }
-
-  dimension: product_variant_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.product_variant_id ;;
-  }
-
-  dimension: quantity {
-    type: number
-    sql: ${TABLE}.quantity ;;
-  }
-
-  dimension: requires_shipping {
-    type: yesno
-    sql: ${TABLE}.requires_shipping ;;
-  }
-
-  dimension: shop_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.shop_id ;;
-  }
-
-  dimension: sku {
-    type: string
-    sql: ${TABLE}.sku ;;
-  }
-
-  dimension: taxable {
-    type: yesno
-    sql: ${TABLE}.taxable ;;
-  }
-
-  dimension: title {
-    type: string
-    sql: ${TABLE}.title ;;
-  }
-
-  dimension: variant_title {
-    type: string
-    sql: ${TABLE}.variant_title ;;
-  }
-
-  dimension: vendor {
-    type: string
-    sql: ${TABLE}.vendor ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      line_item_id,
-      name,
-      shops.name,
-      shops.shop_id,
-      product_variants.product_variant_id,
-      products.product_id,
-      orders.name,
-      orders.order_id,
-      line_item_properties.count
-    ]
-  }
 }

@@ -4,8 +4,11 @@ view: sales {
 
   sql_table_name: shopify.sales ;;
 
+  # IDs -------------------------------------------------------------------
+
   dimension: sale_id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.sale_id ;;
   }
@@ -15,19 +18,77 @@ view: sales {
     sql: ${TABLE}.api_client_id ;;
   }
 
+  dimension: customer_id {
+    type: number
+    sql: ${TABLE}.customer_id ;;
+  }
+
   dimension: billing_address_id {
     type: number
     sql: ${TABLE}.billing_address_id ;;
   }
 
+  dimension: line_item_id {
+    type: number
+    sql: ${TABLE}.line_item_id ;;
+  }
+
+  dimension: location_id {
+    type: number
+    sql: ${TABLE}.location_id ;;
+  }
+
+  dimension: order_id {
+    type: number
+    sql: ${TABLE}.order_id ;;
+  }
+
+  dimension: product_id {
+    type: number
+    sql: ${TABLE}.product_id ;;
+  }
+
+  dimension: product_variant_id {
+    type: number
+    sql: ${TABLE}.product_variant_id ;;
+  }
+
+  dimension: shipping_address_id {
+    type: number
+    sql: ${TABLE}.shipping_address_id ;;
+  }
+
+  dimension: user_id {
+    type: number
+    sql: ${TABLE}.user_id ;;
+  }
+
+  dimension: shop_id {
+    type: number
+    sql: ${TABLE}.shop_id ;;
+  }
+
+  # Dates -------------------------------------------------------------------
+
+  dimension_group: happened {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.happened_at ;;
+  }
+
+  # Money -------------------------------------------------------------------
+
   dimension: currency {
     type: string
     sql: ${TABLE}.currency ;;
-  }
-
-  dimension: customer_id {
-    type: number
-    sql: ${TABLE}.customer_id ;;
   }
 
   dimension: discounts {
@@ -80,45 +141,6 @@ view: sales {
     sql: ${TABLE}.gross_sales_fx ;;
   }
 
-  dimension_group: happened {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.happened_at ;;
-  }
-
-  dimension: is_deleted {
-    type: yesno
-    sql: ${TABLE}.is_deleted ;;
-  }
-
-  dimension: kind {
-    type: string
-    sql: ${TABLE}.kind ;;
-  }
-
-  dimension: line_item_id {
-    type: number
-    sql: ${TABLE}.line_item_id ;;
-  }
-
-  dimension: line_type {
-    type: string
-    sql: ${TABLE}.line_type ;;
-  }
-
-  dimension: location_id {
-    type: number
-    sql: ${TABLE}.location_id ;;
-  }
-
   dimension: net_sales {
     type: number
     sql: ${TABLE}.net_sales ;;
@@ -127,31 +149,6 @@ view: sales {
   dimension: net_sales_fx {
     type: number
     sql: ${TABLE}.net_sales_fx ;;
-  }
-
-  dimension: order_id {
-    type: number
-    sql: ${TABLE}.order_id ;;
-  }
-
-  dimension: product_id {
-    type: number
-    sql: ${TABLE}.product_id ;;
-  }
-
-  dimension: product_type {
-    type: string
-    sql: ${TABLE}.product_type ;;
-  }
-
-  dimension: product_variant_id {
-    type: number
-    sql: ${TABLE}.product_variant_id ;;
-  }
-
-  dimension: quantity {
-    type: number
-    sql: ${TABLE}.quantity ;;
   }
 
   dimension: returns {
@@ -164,26 +161,6 @@ view: sales {
     sql: ${TABLE}.returns_fx ;;
   }
 
-  dimension: shipping {
-    type: number
-    sql: ${TABLE}.shipping ;;
-  }
-
-  dimension: shipping_address_id {
-    type: number
-    sql: ${TABLE}.shipping_address_id ;;
-  }
-
-  dimension: shipping_fx {
-    type: number
-    sql: ${TABLE}.shipping_fx ;;
-  }
-
-  dimension: shop_id {
-    type: number
-    sql: ${TABLE}.shop_id ;;
-  }
-
   dimension: taxes {
     type: number
     sql: ${TABLE}.taxes ;;
@@ -194,14 +171,14 @@ view: sales {
     sql: ${TABLE}.taxes_fx ;;
   }
 
-  dimension: test {
-    type: yesno
-    sql: ${TABLE}.test ;;
+  dimension: shipping {
+    type: number
+    sql: ${TABLE}.shipping ;;
   }
 
-  dimension: title {
-    type: string
-    sql: ${TABLE}.title ;;
+  dimension: shipping_fx {
+    type: number
+    sql: ${TABLE}.shipping_fx ;;
   }
 
   dimension: total_sales {
@@ -214,9 +191,41 @@ view: sales {
     sql: ${TABLE}.total_sales_fx ;;
   }
 
-  dimension: user_id {
+  # Other -------------------------------------------------------------------
+
+  dimension: is_deleted {
+    type: yesno
+    sql: ${TABLE}.is_deleted ;;
+  }
+
+  dimension: kind {
+    type: string
+    sql: ${TABLE}.kind ;;
+  }
+
+  dimension: line_type {
+    type: string
+    sql: ${TABLE}.line_type ;;
+  }
+
+  dimension: product_type {
+    type: string
+    sql: ${TABLE}.product_type ;;
+  }
+
+  dimension: quantity {
     type: number
-    sql: ${TABLE}.user_id ;;
+    sql: ${TABLE}.quantity ;;
+  }
+
+  dimension: test {
+    type: yesno
+    sql: ${TABLE}.test ;;
+  }
+
+  dimension: title {
+    type: string
+    sql: ${TABLE}.title ;;
   }
 
   dimension: vendor {
@@ -224,8 +233,4 @@ view: sales {
     sql: ${TABLE}.vendor ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [sale_id]
-  }
 }
