@@ -14,4 +14,10 @@ explore: sales {
       value: "false"
     }
   }
+
+  join: orders {
+    sql_on: ${sales.order_id} = ${orders.order_id} ;;
+    type: inner
+    relationship: many_to_one
+  }
 }

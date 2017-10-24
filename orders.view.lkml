@@ -1,7 +1,16 @@
 # Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/orders
 
 view: orders {
-  sql_table_name: shopify.orders ;;
+  derived_table: {
+    sql:
+
+      select
+        *,
+        row_number() over (partition by customer_id order by processed_at) as order_number
+      from shopify.orders
+
+    ;;
+  }
 
   # IDs -------------------------------------------------------------------
 
@@ -137,6 +146,17 @@ view: orders {
   dimension: test {
     type: yesno
     sql: ${TABLE}.test ;;
+  }
+
+  dimension: order_number {
+    type: number
+    sql: ${TABLE}.order_number ;;
+    value_format_name: decimal_0
+  }
+
+  dimension: new_vs_repeat {
+    type: string
+    sql: case when ${order_number} = 1 then 'new' else 'repeat' end ;;
   }
 
   # Measures -------------------------------------------------------------------
