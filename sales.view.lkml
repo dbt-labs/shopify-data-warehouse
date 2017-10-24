@@ -1,4 +1,7 @@
+# Docs are here: https://help.shopify.com/api/data-warehouse/schema-reference/sales
+
 view: sales {
+
   sql_table_name: shopify.sales ;;
 
   dimension: sale_id {
