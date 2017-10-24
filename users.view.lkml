@@ -1,4 +1,7 @@
+# Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/users
+
 view: users {
+
   sql_table_name: shopify.users ;;
 
   dimension: user_id {
@@ -7,9 +10,10 @@ view: users {
     sql: ${TABLE}.user_id ;;
   }
 
-  dimension: email {
-    type: string
-    sql: ${TABLE}.email ;;
+  dimension: shop_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.shop_id ;;
   }
 
   dimension: first_name {
@@ -22,27 +26,9 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: shop_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.shop_id ;;
+  dimension: email {
+    type: string
+    sql: ${TABLE}.email ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      user_id,
-      last_name,
-      first_name,
-      shops.name,
-      shops.shop_id,
-      inventory_adjustments.count,
-      orders.count
-    ]
-  }
 }

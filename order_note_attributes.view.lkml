@@ -1,4 +1,5 @@
 view: order_note_attributes {
+
   sql_table_name: shopify.order_note_attributes ;;
 
   dimension: key {
@@ -8,13 +9,13 @@ view: order_note_attributes {
 
   dimension: order_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.order_id ;;
   }
 
   dimension: shop_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.shop_id ;;
   }
 
@@ -23,8 +24,4 @@ view: order_note_attributes {
     sql: ${TABLE}.value ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [shops.name, shops.shop_id, orders.name, orders.order_id]
-  }
 }

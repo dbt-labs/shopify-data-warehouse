@@ -1,11 +1,30 @@
+# Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/product_variants
+
 view: product_variants {
+
   sql_table_name: shopify.product_variants ;;
+
+   # IDs -------------------------------------------------------------------
 
   dimension: product_variant_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.product_variant_id ;;
   }
+
+  dimension: product_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.product_id ;;
+  }
+
+  dimension: shop_id {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.shop_id ;;
+  }
+
+   # Dates -------------------------------------------------------------------
 
   dimension_group: created {
     type: time
@@ -35,26 +54,11 @@ view: product_variants {
     sql: ${TABLE}.deleted_at ;;
   }
 
-  dimension: grams {
-    type: number
-    sql: ${TABLE}.grams ;;
-  }
+  # Other -------------------------------------------------------------------
 
   dimension: price {
     type: number
     sql: ${TABLE}.price ;;
-  }
-
-  dimension: product_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.product_id ;;
-  }
-
-  dimension: shop_id {
-    type: number
-    # hidden: yes
-    sql: ${TABLE}.shop_id ;;
   }
 
   dimension: sku {
@@ -67,21 +71,12 @@ view: product_variants {
     sql: ${TABLE}.title ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [detail*]
+  dimension: grams {
+    type: number
+    sql: ${TABLE}.grams ;;
   }
 
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-      product_variant_id,
-      shops.name,
-      shops.shop_id,
-      products.product_id,
-      inventory_adjustments.count,
-      inventory_items_snapshot.count,
-      line_items.count
-    ]
-  }
+  # Measures -------------------------------------------------------------------
+
+
 }
