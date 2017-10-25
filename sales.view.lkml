@@ -94,101 +94,121 @@ view: sales {
   dimension: discounts {
     type: number
     sql: ${TABLE}.discounts ;;
+    value_format_name: local_currency
   }
 
   dimension: discounts_fx {
     type: number
     sql: ${TABLE}.discounts_fx ;;
+    value_format_name: usd
   }
 
   dimension: gift_card_discounts {
     type: number
     sql: ${TABLE}.gift_card_discounts ;;
+    value_format_name: local_currency
   }
 
   dimension: gift_card_discounts_fx {
     type: number
     sql: ${TABLE}.gift_card_discounts_fx ;;
+    value_format_name: usd
   }
 
   dimension: gift_card_gross_sales {
     type: number
     sql: ${TABLE}.gift_card_gross_sales ;;
+    value_format_name: local_currency
   }
 
   dimension: gift_card_gross_sales_fx {
     type: number
     sql: ${TABLE}.gift_card_gross_sales_fx ;;
+    value_format_name: usd
   }
 
   dimension: gift_cards_issued {
     type: number
     sql: ${TABLE}.gift_cards_issued ;;
+    value_format_name: local_currency
   }
 
   dimension: gift_cards_issued_fx {
     type: number
     sql: ${TABLE}.gift_cards_issued_fx ;;
+    value_format_name: usd
   }
 
   dimension: gross_sales {
     type: number
     sql: ${TABLE}.gross_sales ;;
+    value_format_name: local_currency
   }
 
   dimension: gross_sales_fx {
     type: number
     sql: ${TABLE}.gross_sales_fx ;;
+    value_format_name: usd
   }
 
   dimension: net_sales {
     type: number
     sql: ${TABLE}.net_sales ;;
+    value_format_name: local_currency
   }
 
   dimension: net_sales_fx {
     type: number
     sql: ${TABLE}.net_sales_fx ;;
+    value_format_name: usd
   }
 
   dimension: returns {
     type: number
     sql: ${TABLE}.returns ;;
+    value_format_name: local_currency
   }
 
   dimension: returns_fx {
     type: number
     sql: ${TABLE}.returns_fx ;;
+    value_format_name: usd
   }
 
   dimension: taxes {
     type: number
     sql: ${TABLE}.taxes ;;
+    value_format_name: local_currency
   }
 
   dimension: taxes_fx {
     type: number
     sql: ${TABLE}.taxes_fx ;;
+    value_format_name: usd
   }
 
   dimension: shipping {
     type: number
     sql: ${TABLE}.shipping ;;
+    value_format_name: local_currency
   }
 
   dimension: shipping_fx {
     type: number
     sql: ${TABLE}.shipping_fx ;;
+    value_format_name: usd
   }
 
   dimension: total_sales {
     type: number
     sql: ${TABLE}.total_sales ;;
+    value_format_name: local_currency
   }
 
   dimension: total_sales_fx {
     type: number
     sql: ${TABLE}.total_sales_fx ;;
+    value_format_name: usd
   }
 
   # Other -------------------------------------------------------------------
@@ -208,11 +228,6 @@ view: sales {
     sql: ${TABLE}.line_type ;;
   }
 
-  dimension: product_type {
-    type: string
-    sql: ${TABLE}.product_type ;;
-  }
-
   dimension: quantity {
     type: number
     sql: ${TABLE}.quantity ;;
@@ -221,16 +236,6 @@ view: sales {
   dimension: test {
     type: yesno
     sql: ${TABLE}.test ;;
-  }
-
-  dimension: title {
-    type: string
-    sql: ${TABLE}.title ;;
-  }
-
-  dimension: vendor {
-    type: string
-    sql: ${TABLE}.vendor ;;
   }
 
 }

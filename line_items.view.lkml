@@ -64,16 +64,12 @@ view: line_items {
     sql: ${TABLE}.product_type ;;
   }
 
-  dimension: compare_at_price {
-    type: number
-    sql: ${TABLE}.compare_at_price ;;
-  }
-
-  # Dollars -------------------------------------------------------------------
+  # Money -------------------------------------------------------------------
 
   dimension: price {
     type: number
     sql: ${TABLE}.price ;;
+    value_format_name: local_currency
   }
 
   dimension: taxable {

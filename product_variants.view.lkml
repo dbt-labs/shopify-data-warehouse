@@ -59,6 +59,7 @@ view: product_variants {
   dimension: price {
     type: number
     sql: ${TABLE}.price ;;
+    value_format_name: local_currency
   }
 
   dimension: sku {

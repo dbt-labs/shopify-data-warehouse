@@ -149,6 +149,7 @@ view: customers {
   dimension: expected_purchase_value_in_next_30_days {
     type: number
     sql: ${TABLE}.expected_purchase_value_in_next_30_days ;;
+    value_format_name: local_currency
   }
 
   dimension: predicted_average_number_of_days_between_orders {
