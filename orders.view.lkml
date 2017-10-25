@@ -21,12 +21,6 @@ view: orders {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: api_client_id {
-    type: number
-    hidden: yes
-    sql: ${TABLE}.api_client_id ;;
-  }
-
   dimension: billing_address_id {
     type: number
     hidden: yes
@@ -117,11 +111,13 @@ view: orders {
   dimension: total_price {
     type: number
     sql: ${TABLE}.total_price ;;
+    value_format_name: local_currency
   }
 
   dimension: total_price_fx {
     type: number
     sql: ${TABLE}.total_price_fx ;;
+    value_format_name: usd
   }
 
   # Status -------------------------------------------------------------------
