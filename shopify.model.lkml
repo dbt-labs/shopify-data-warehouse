@@ -25,3 +25,5 @@ explore: sales {
     relationship: many_to_one
   }
 }
+
+explore: online_store_sessions {}

@@ -2,7 +2,12 @@
 
 view: online_store_sessions {
 
-  sql_table_name: shopify.online_store_sessions ;;
+  derived_table: {
+    sql:
+        select *, row_number() over (partition by user_token order by session_started_at) as session_index
+        from shopify.online_store_sessions
+        ;;
+  }
 
   # IDs -------------------------------------------------------------------
 
@@ -109,7 +114,7 @@ view: online_store_sessions {
     sql: ${TABLE}.campaign_content ;;
   }
 
-  # Referer -------------------------------------------------------------------
+  # Referrer -------------------------------------------------------------------
 
   dimension: referrer_domain {
     type: string
@@ -286,6 +291,38 @@ view: online_store_sessions {
     sql: ${TABLE}.session_duration ;;
   }
 
+  dimension: session_duration_tier {
+    type: string
+    sql: case when ${TABLE}.session_duration between 0 and 9 then '0s to 9s'
+              when ${TABLE}.session_duration between 10 and 29 then '10s to 29s'
+              when ${TABLE}.session_duration between 30 and 59 then '30s to 59s'
+              when ${TABLE}.session_duration between 60 and 119 then '60s to 119s'
+              when ${TABLE}.session_duration between 120 and 239 then '120s to 239s'
+              when ${TABLE}.session_duration > 239 then '240s or more'
+              else null
+         end ;;
+  }
+
+  dimension: user_bounced {
+    label: "Bounced?"
+    type: yesno
+    sql: case when ${TABLE}.count_of_pageviews = 1 then 1 else 0 end ;;
+  }
+
+  dimension: session_index {
+    type: number
+    sql: ${TABLE}.session_index ;;
+  }
+
+  dimension: new_vs_returning {
+    type: string
+    sql:
+    case
+      when ${session_index} = 1 then 'new'
+      else 'returning'
+    end ;;
+  }
+
   # Geo -------------------------------------------------------------------
 
   dimension: hashed_ip {
@@ -364,5 +401,20 @@ view: online_store_sessions {
   measure: unique_visitors {
     type: count_distinct
     sql: ${user_token} ;;
+  }
+
+  measure: bounced_sessions {
+    type: count
+    filters: {
+      field: user_bounced
+      value: "yes"
+    }
+    value_format_name: decimal_0
+  }
+
+  measure: bounce_rate {
+    type: number
+    sql: ${bounced_sessions}::float / nullif(${sessions}, 0) ;;
+    value_format_name: percent_1
   }
 }
