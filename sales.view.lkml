@@ -238,4 +238,16 @@ view: sales {
     sql: ${TABLE}.test ;;
   }
 
+# Measures -------------------------------------------------------------------
+
+  measure: order_items {
+    type: count
+  }
+
+  measure: gross_sales_total {
+    type: sum
+    sql: ${TABLE}.gross_sales_fx ;;
+    value_format_name: usd
+  }
+
 }
