@@ -161,4 +161,21 @@ view: orders {
     type: count
   }
 
+  measure: count_customers {
+    type: count_distinct
+    sql: ${TABLE}.customer_id ;;
+  }
+
+  measure: avg_order_value {
+    type: average
+    sql: ${TABLE}.total_price_fx ;;
+    value_format_name: usd
+  }
+
+  measure: order_value {
+    type: sum
+    sql: ${TABLE}.total_price_fx ;;
+    value_format_name: usd
+  }
+
 }

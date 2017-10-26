@@ -11,11 +11,11 @@ explore: sales {
   always_filter: {
     filters: {
       field: test
-      value: "false"
+      value: "no"
     }
     filters: {
       field: is_deleted
-      value: "false"
+      value: "no"
     }
   }
 
@@ -25,3 +25,5 @@ explore: sales {
     relationship: many_to_one
   }
 }
+
+explore: online_store_sessions {}
