@@ -22,6 +22,25 @@
     explore: online_store_sessions
     field: online_store_sessions.session_started_date
     default_value: 'last 12 months'
+  - name: new_vs_returning
+    title: 'New vs Returning'
+    type: field_filter
+    explore: online_store_sessions
+    field: online_store_sessions.new_vs_returning
+    default_value:
+  - name: device
+    title: 'Device'
+    type: field_filter
+    explore: online_store_sessions
+    field: online_store_sessions.ua_form_factor
+    default_value:
+  - name: traffic_source
+    title: 'Traffic Source'
+    type: field_filter
+    explore: online_store_sessions
+    field: online_store_sessions.referrer_source
+    default_value:
+
 
   elements:
     - name: last_week_sessions
@@ -81,6 +100,10 @@
       comparison_label: week-over-week
       filters:
         online_store_sessions.session_started_week: 'before this week'
+      listen:
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
     - name: last_week_uniques
       title: Last Week Uniques
@@ -139,6 +162,10 @@
       comparison_label: week-over-week
       filters:
         online_store_sessions.session_started_week: 'before this week'
+      listen:
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
 
     - name: last_week_bounce_rate
@@ -198,6 +225,10 @@
       comparison_label: week-over-week
       filters:
         online_store_sessions.session_started_week: 'before this week'
+      listen:
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
     - name: last_week_conversion_rate
       title: Last Week Conversion Rate
@@ -266,8 +297,10 @@
       comparison_label: week-over-week
       filters:
         online_store_sessions.session_started_week: 'before this week'
-
-
+      listen:
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
     - name: sessions
       title: Sessions
@@ -323,6 +356,9 @@
       hide_legend: true
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
 
 
@@ -369,6 +405,9 @@
       hidden_series: [email]
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
 
 
@@ -413,6 +452,9 @@
       series_name: Sessions
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
 
 
@@ -425,8 +467,6 @@
       pivots: [online_store_sessions.ua_form_factor]
       fill_fields: [online_store_sessions.session_started_date]
       measures: [online_store_sessions.sessions]
-      filters:
-        online_store_sessions.ua_form_factor: Desktop,Mobile,Tablet
       sorts: [online_store_sessions.session_started_date desc, online_store_sessions.ua_form_factor]
       limit: 500
       column_limit: 50
@@ -462,6 +502,9 @@
       hidden_series: [Game console, Unknown]
       listen:
         date_range: online_store_sessions.session_started_date
+        device: online_store_sessions.ua_form_factor
+        new_vs_returning: online_store_sessions.new_vs_returning
+        traffic_source: online_store_sessions.referrer_source
 
 
 
@@ -509,6 +552,9 @@
       series_colors: {}
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
     - name: conversion_rate_by_traffic_source
       title: Conversion Rate by Traffic Source
@@ -565,6 +611,9 @@
       hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
 
     - name: conversion_rate_by_device
       title: Conversion Rate by Device
@@ -621,3 +670,6 @@
       hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
       listen:
         date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
