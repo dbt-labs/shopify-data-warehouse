@@ -276,7 +276,7 @@ view: online_store_sessions {
     sql: ${TABLE}.count_of_distinct_products_added_to_cart ;;
   }
 
-  dimension: count_of_orders_completed {
+  dimension: orders_completed {
     type: number
     sql: ${TABLE}.count_of_orders_completed ;;
   }
@@ -374,7 +374,7 @@ view: online_store_sessions {
 
   dimension: ua_form_factor {
     type: string
-    sql: ${TABLE}.ua_form_factor ;;
+    sql: case when ${TABLE}.ua_form_factor is null then 'Unknown' else ${TABLE}.ua_form_factor end ;;
   }
 
   dimension: ua_os {
@@ -410,6 +410,11 @@ view: online_store_sessions {
       value: "yes"
     }
     value_format_name: decimal_0
+  }
+
+  measure: count_of_orders_completed {
+    type: sum
+    sql: case when ${TABLE}.count_of_orders_completed>=1 then 1 else 0 end ;;
   }
 
   measure: bounce_rate {
