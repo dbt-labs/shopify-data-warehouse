@@ -1,7 +1,7 @@
 connection: "shopify_test"
 
-include: "*.view.lkml"         # include all views in this project
-include: "*.dashboard.lookml"  # include all dashboards in this project
+include: "*.view.lkml"
+include: "*.dashboard.lookml"
 
 named_value_format: local_currency {
   value_format: "$0.00"
