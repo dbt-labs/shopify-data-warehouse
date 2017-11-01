@@ -7,6 +7,7 @@ view: shops {
   dimension: shop_id {
     primary_key: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.shop_id ;;
   }
 

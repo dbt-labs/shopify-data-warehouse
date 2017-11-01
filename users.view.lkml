@@ -7,6 +7,7 @@ view: users {
   dimension: user_id {
     primary_key: yes
     type: number
+    hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
@@ -29,6 +30,11 @@ view: users {
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: ${first_name} || ' ' || ${last_name} ;;
   }
 
 }
