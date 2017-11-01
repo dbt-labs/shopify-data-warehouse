@@ -15,7 +15,7 @@ view: shops {
     sql: ${TABLE}.domain ;;
   }
 
-  dimension: name {
+  dimension: shop_name {
     type: string
     sql: ${TABLE}.name ;;
   }

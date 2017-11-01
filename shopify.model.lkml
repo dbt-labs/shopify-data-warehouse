@@ -24,6 +24,25 @@ explore: sales {
     type: inner
     relationship: many_to_one
   }
+
+  join: products {
+    sql_on:  ${sales.product_id} = ${products.product_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+
+  join: shops {
+    sql_on:  ${sales.shop_id} = ${shops.shop_id} ;;
+    type:  left_outer
+    relationship: many_to_one
+  }
 }
 
-explore: online_store_sessions {}
+explore: online_store_sessions {
+
+  join: shops {
+    sql_on: ${online_store_sessions.shop_id} = ${shops.shop_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+}
