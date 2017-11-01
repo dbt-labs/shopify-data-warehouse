@@ -2,9 +2,22 @@
 
 view: inventory_items_snapshot {
 
-  sql_table_name: shopify.inventory_items_snapshot ;;
+  derived_table: {
+    sql:
+      select
+        md5(inventory_item_id::varchar || snapshot_date::date::varchar) as id,
+        *
+      from shopify.inventory_items_snapshot ;;
+  }
 
   # IDs -------------------------------------------------------------------
+
+  dimension: id {
+    primary_key: yes
+    hidden: yes
+    sql: ${TABLE}.id ;;
+    type: string
+  }
 
   dimension: inventory_item_id {
     type: number
@@ -34,8 +47,6 @@ view: inventory_items_snapshot {
   dimension_group: snapshot {
     type: time
     timeframes: [
-      raw,
-      time,
       date,
       week,
       month,

@@ -10,6 +10,7 @@ view: product_variants {
     primary_key: yes
     type: number
     sql: ${TABLE}.product_variant_id ;;
+    hidden: yes
   }
 
   dimension: product_id {
