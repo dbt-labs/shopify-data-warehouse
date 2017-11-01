@@ -20,7 +20,7 @@ view: online_store_sessions {
 
   dimension: shop_id {
     type: number
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.shop_id ;;
   }
 

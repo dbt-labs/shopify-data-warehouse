@@ -18,17 +18,8 @@ Not using:
 
 These metrics are better calculated in looker
 
-### Inventory Items Snapshot
-
-We need a PK in this table.
-
 ### Order Note Attributes
 
 Need a PK
 
 No docs!
-
-
-## On LookML Implementation
-
-- How do we data type foreign currency fields correctly?
