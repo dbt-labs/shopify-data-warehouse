@@ -51,7 +51,7 @@ view: inventory_adjustments {
 
   # Dates -------------------------------------------------------------------
 
-  dimension_group: created {
+  dimension_group: inventory {
     type: time
     timeframes: [
       raw,
@@ -70,11 +70,13 @@ view: inventory_adjustments {
   dimension: quantity_after_adjustment {
     type: number
     sql: ${TABLE}.quantity_after_adjustment ;;
+    hidden: yes
   }
 
   dimension: quantity_delta {
     type: number
     sql: ${TABLE}.quantity_delta ;;
+    hidden: yes
   }
 
   dimension: reason {
@@ -84,6 +86,31 @@ view: inventory_adjustments {
 
   # Measures -------------------------------------------------------------------
 
+  measure: inventory_outflow {
+    type: sum
+    sql: ${quantity_delta};;
+    value_format_name: decimal_0
+    filters: {
+      field: quantity_delta
+      value: "<0"
+    }
+  }
+
+  measure: inventory_inflow {
+    type: sum
+    sql: ${quantity_delta};;
+    value_format_name: decimal_0
+    filters: {
+      field: quantity_delta
+      value: ">0"
+    }
+  }
+
+  measure: net_inventory_change {
+    type: sum
+    sql: ${quantity_delta};;
+    value_format_name: decimal_0
+  }
 
 
 }

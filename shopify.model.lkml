@@ -27,3 +27,55 @@ explore: sales {
 }
 
 explore: online_store_sessions {}
+
+explore: inventory_items_snapshot {
+  label: "Historical Inventory Levels"
+
+  join: products {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${inventory_items_snapshot.product_id} = ${products.product_id};;
+  }
+
+  join: product_variants {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${inventory_items_snapshot.product_variant_id} = ${product_variants.product_variant_id} ;;
+  }
+}
+
+explore: current_inventory {
+  label: "Current Inventory Levels"
+
+  join: products {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${current_inventory.product_id} = ${products.product_id};;
+    fields: [products.product_type, products.title, products.vendor]
+  }
+
+  join: product_variants {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${current_inventory.product_variant_id} = ${product_variants.product_variant_id} ;;
+    fields: [product_variants.sku, product_variants.title]
+  }
+}
+
+explore: inventory_adjustments {
+  label: "Inventory Flows"
+
+  join: products {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${inventory_adjustments.product_id} = ${products.product_id};;
+    fields: [products.product_type, products.title, products.vendor]
+  }
+
+  join: product_variants {
+    type: inner
+    relationship: many_to_one
+    sql_on: ${inventory_adjustments.product_variant_id} = ${product_variants.product_variant_id} ;;
+    fields: [product_variants.sku, product_variants.title]
+  }
+}
