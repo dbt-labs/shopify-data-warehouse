@@ -238,6 +238,16 @@ view: sales {
     sql: ${TABLE}.test ;;
   }
 
+  dimension: customer_created_month {
+    type: string
+    sql:  ${customers.customer_created_month} ;;
+  }
+
+  dimension: months_from_start {
+    type: number
+    sql: datediff(month,${orders.processed_date},${customers.customer_created_month}) ;;
+  }
+
 # Measures -------------------------------------------------------------------
 
   measure: order_items {
@@ -249,5 +259,7 @@ view: sales {
     sql: ${TABLE}.gross_sales_fx ;;
     value_format_name: usd
   }
+
+
 
 }

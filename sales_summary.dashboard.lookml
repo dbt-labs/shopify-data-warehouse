@@ -7,13 +7,9 @@
       height: 200
     - elements: [items_per_order, avg_order_value, avg_customer_value]
       height: 200
-    - elements: [sales_over_time]
+    - elements: [sales_and_orders_over_time, avg_order_value_over_time]
       height: 300
-    - elements: [orders_over_time]
-      height: 300
-    - elements: [new_vs_repeat_over_time]
-      height: 300
-    - elements: [new_vs_repeat_pie, new_vs_repeat_stats]
+    - elements: [new_vs_repeat_over_time,new_vs_repeat_pie, new_vs_repeat_stats]
       height: 300
     - elements: [top_products_units, top_products_gross]
       height: 300
@@ -24,8 +20,8 @@
     title: 'Date Range'
     type: field_filter
     explore: sales
-    field: orders.processed_date
-    default_value: 'last 12 months'
+    field: orders.processed_month
+    default_value: '12 months ago for 12 months'
   - name: shop_name
     title: 'Shop Name'
     type: field_filter
@@ -89,7 +85,7 @@
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: total_revenue
@@ -148,7 +144,7 @@
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name:  total_customers
@@ -170,7 +166,7 @@
       expression: "(${orders.count_customers} - ${last_month}) / ${last_month}"
       value_format:
       value_format_name: percent_0
-    sorts: [orders.processed_date_month desc]
+    sorts: [orders.processed_month_month desc]
     limit: '500'
     column_limit: '50'
     query_timezone: America/New_York
@@ -207,7 +203,7 @@
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: items_per_order
@@ -271,7 +267,7 @@
     hidden_fields: [sales.order_items, orders.count, last_month]
     comparison_label: month-over-month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: avg_order_value
@@ -332,9 +328,9 @@
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
-    date_range: orders.processed_date
+    date_range: orders.processed_month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: avg_customer_value
@@ -398,22 +394,23 @@
     hidden_fields: [orders.order_value, orders.count_customers, last_month]
     comparison_label: month-over-month
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
-  - name: sales_over_time
-    title: Sales Over Time
+  - name: sales_and_orders_over_time
+    title: Sales & Orders Over Time
     model: shopify
     explore: sales
     type: looker_line
-    fields: [orders.processed_date, sales.gross_sales_total]
-    fill_fields: [orders.processed_date]
-    sorts: [orders.processed_date desc]
+    fields: [orders.processed_month, sales.gross_sales_total, orders.count]
+    fill_fields: [orders.processed_month]
+    sorts: [orders.processed_month desc]
     limit: 500
+    column_limit: 50
     stacking: ''
     show_value_labels: false
     label_density: 25
-    legend_position: center
+    hide_legend: true
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
@@ -436,47 +433,46 @@
     show_silhouette: false
     totals_color: "#808080"
     series_types: {}
+    y_axes: [{label: '', maxValue: !!null '', minValue: !!null '', orientation: left,
+        showLabels: true, showValues: true, tickDensity: default, tickDensityCustom: 5,
+        type: linear, unpinAxis: false, valueFormat: !!null '', series: [{id: sales.gross_sales_total,
+            name: Gross Sales Total, __FILE: shopify/sales_summary.dashboard.lookml,
+            __LINE_NUM: 438}], __FILE: shopify/sales_summary.dashboard.lookml, __LINE_NUM: 436},
+      {label: !!null '', maxValue: !!null '', minValue: !!null '', orientation: right,
+        showLabels: true, showValues: true, tickDensity: default, tickDensityCustom: 5,
+        type: linear, unpinAxis: false, valueFormat: !!null '', series: [{id: orders.count,
+            name: Orders, __FILE: shopify/sales_summary.dashboard.lookml, __LINE_NUM: 442}],
+        __FILE: shopify/sales_summary.dashboard.lookml, __LINE_NUM: 439}]
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
-  - name: orders_over_time
-    title: Orders Over Time
+
+  - name: avg_order_value_over_time
+    title: Avg Order Value Over Time
     model: shopify
     explore: sales
     type: looker_line
-    fields: [orders.processed_date, sales.order_items]
-    fill_fields: [orders.processed_date]
-    sorts: [orders.processed_date desc]
+    fields: [orders.processed_month, sales.gross_sales_total, orders.count]
+    fill_fields: [orders.processed_month]
+    sorts: [orders.processed_month desc]
     limit: 500
-    stacking: ''
-    show_value_labels: false
-    label_density: 25
-    legend_position: center
-    x_axis_gridlines: false
-    y_axis_gridlines: true
+    column_limit: 50
     show_view_names: false
-    limit_displayed_rows: false
-    y_axis_combined: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    x_axis_scale: auto
-    y_axis_scale_mode: linear
-    show_null_points: true
-    point_style: none
-    interpolation: linear
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    series_types: {}
+    dynamic_fields:
+    - table_calculation: avg_order_value
+      label: Avg Order Value
+      expression: "${sales.gross_sales_total}/${orders.count}"
+      value_format:
+      value_format_name: usd
+      _kind_hint: measure
+      _type_hint: number
+    stacking: ''
+    hidden_fields: [orders.count, sales.gross_sales_total]
+    series_colors:
+    avg_order_value: "#85BB6D"
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: top_products_units
@@ -530,7 +526,7 @@
     x_axis_label: Product ID
     hidden_points_if_no: [yesno]
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: top_products_gross
@@ -584,7 +580,7 @@
     x_axis_label: Product ID
     hidden_points_if_no: [yesno]
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: new_vs_repeat_pie
@@ -625,7 +621,7 @@
     totals_color: "#808080"
     series_types: {}
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: new_vs_repeat_over_time
@@ -633,10 +629,10 @@
     model: shopify
     explore: sales
     type: looker_line
-    fields: [orders.count_customers, orders.processed_date, orders.new_vs_repeat]
+    fields: [orders.count, orders.processed_month, orders.new_vs_repeat]
     pivots: [orders.new_vs_repeat]
-    fill_fields: [orders.processed_date]
-    sorts: [orders.processed_date desc, orders.new_vs_repeat]
+    fill_fields: [orders.processed_month]
+    sorts: [orders.processed_month desc, orders.new_vs_repeat]
     limit: 500
     stacking: ''
     show_value_labels: false
@@ -665,7 +661,7 @@
     totals_color: "#808080"
     series_types: {}
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name
 
   - name: new_vs_repeat_stats
@@ -673,14 +669,14 @@
     model: shopify
     explore: sales
     type: looker_column
-    fields: [orders.avg_order_value, orders.new_vs_repeat, orders.count_customers, sales.order_items]
+    fields: [orders.avg_order_value, orders.new_vs_repeat, orders.count, sales.order_items]
     sorts: [orders.avg_order_value desc]
     limit: 500
     column_limit: 50
     dynamic_fields:
     - table_calculation: avg_order_items
       label: Avg Order Items
-      expression: "${sales.order_items}/${orders.count_customers}"
+      expression: "${sales.order_items}/${orders.count}"
       value_format:
       value_format_name: decimal_1
       _kind_hint: measure
@@ -741,7 +737,7 @@
               valueFormat: !!null '',
               series: [{id: avg_order_items, name: Avg Order Items}]
               }]
-    hidden_fields: [sales.order_items, orders.count_customers]
+    hidden_fields: [sales.order_items, orders.count]
     listen:
-      date_range: orders.processed_date
+      date_range: orders.processed_month
       shop_name: shops.shop_name

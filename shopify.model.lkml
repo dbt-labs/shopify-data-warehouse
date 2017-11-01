@@ -36,6 +36,12 @@ explore: sales {
     type:  left_outer
     relationship: many_to_one
   }
+
+  join: customers {
+    sql_on: ${orders.customer_id} = ${customers.customer_id} ;;
+    type:  left_outer
+    relationship: many_to_one
+  }
 }
 
 explore: online_store_sessions {

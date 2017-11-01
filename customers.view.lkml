@@ -78,6 +78,12 @@ view: customers {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: customer_created_month {
+    type: date
+    sql: ${created_month} ;;
+    hidden: yes
+  }
+
   dimension_group: first_order {
     type: time
     timeframes: [
