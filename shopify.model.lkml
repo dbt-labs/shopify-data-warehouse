@@ -24,9 +24,19 @@ explore: sales {
     type: inner
     relationship: many_to_one
   }
-}
 
-explore: online_store_sessions {}
+  join: products {
+    sql_on:  ${sales.product_id} = ${products.product_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+
+  join: shops {
+    sql_on:  ${sales.shop_id} = ${shops.shop_id} ;;
+    type:  left_outer
+    relationship: many_to_one
+  }
+}
 
 explore: inventory_items_snapshot {
   label: "Historical Inventory Levels"
@@ -77,5 +87,14 @@ explore: inventory_adjustments {
     relationship: many_to_one
     sql_on: ${inventory_adjustments.product_variant_id} = ${product_variants.product_variant_id} ;;
     fields: [product_variants.sku, product_variants.title]
+
+  }
+}
+
+explore: online_store_sessions {
+  join: shops {
+    sql_on: ${online_store_sessions.shop_id} = ${shops.shop_id} ;;
+    type: left_outer
+    relationship: many_to_one
   }
 }

@@ -13,6 +13,8 @@
       height: 300
     - elements: [conversion_rate_by_traffic_source, conversion_rate_by_device]
       height: 300
+    - elements: [top_countries, top_landing_pages]
+      height: 300
   show_applied_filters: true
 
   filters:
@@ -39,6 +41,12 @@
     type: field_filter
     explore: online_store_sessions
     field: online_store_sessions.referrer_source
+    default_value:
+  - name: shop_name
+    title: 'Shop Name'
+    type: field_filter
+    explore: sales
+    field: shops.shop_name
     default_value:
 
 
@@ -104,6 +112,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
     - name: last_week_uniques
       title: Last Week Uniques
@@ -166,6 +175,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
 
     - name: last_week_bounce_rate
@@ -229,6 +239,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
     - name: last_week_conversion_rate
       title: Last Week Conversion Rate
@@ -301,6 +312,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
     - name: sessions
       title: Sessions
@@ -359,8 +371,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
-
-
+        shop_name: shops.shop_name
 
 
     - name: sessions_by_traffic_source
@@ -408,8 +419,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
-
-
+        shop_name: shops.shop_name
 
 
     - name: time_on_site
@@ -455,7 +465,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
-
+        shop_name: shops.shop_name
 
 
     - name: sessions_by_device
@@ -505,6 +515,7 @@
         device: online_store_sessions.ua_form_factor
         new_vs_returning: online_store_sessions.new_vs_returning
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
 
 
@@ -555,6 +566,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
     - name: conversion_rate_by_traffic_source
       title: Conversion Rate by Traffic Source
@@ -614,6 +626,7 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
 
     - name: conversion_rate_by_device
       title: Conversion Rate by Device
@@ -673,3 +686,116 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         device: online_store_sessions.ua_form_factor
         traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
+
+    - name: top_countries
+      title: Sessions by Country
+      model: shopify
+      explore: online_store_sessions
+      type: looker_bar
+      fields: [online_store_sessions.location_country, online_store_sessions.sessions]
+      sorts: [online_store_sessions.sessions desc]
+      limit: 20
+      column_limit: 15
+      dynamic_fields:
+      - table_calculation: yesno
+        label: yes/no
+        expression: row()<=10
+        value_format:
+        value_format_name:
+        _kind_hint: dimension
+        _type_hint: yesno
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: false
+      limit_displayed_rows: false
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: false
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      y_axis_scale_mode: linear
+      ordering: none
+      show_null_labels: false
+      show_totals_labels: false
+      show_silhouette: false
+      totals_color: "#808080"
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      value_labels: legend
+      label_type: labPer
+      series_types: {}
+      hidden_series: []
+      x_axis_label: Product ID
+      hidden_points_if_no: [yesno]
+      listen:
+        date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
+
+    - name: top_landing_pages
+      title: Sessions by Landing Page Type
+      model: shopify
+      explore: online_store_sessions
+      type: looker_bar
+      fields: [online_store_sessions.landing_page_type, online_store_sessions.sessions]
+      filters:
+        online_store_sessions.landing_page_type: "-NULL"
+      sorts: [online_store_sessions.sessions desc]
+      limit: 20
+      column_limit: 15
+      dynamic_fields:
+      - table_calculation: yesno
+        label: yes/no
+        expression: row()<=10
+        value_format:
+        value_format_name:
+        _kind_hint: dimension
+        _type_hint: yesno
+      stacking: ''
+      show_value_labels: false
+      label_density: 25
+      legend_position: center
+      x_axis_gridlines: false
+      y_axis_gridlines: true
+      show_view_names: false
+      limit_displayed_rows: false
+      y_axis_combined: true
+      show_y_axis_labels: true
+      show_y_axis_ticks: true
+      y_axis_tick_density: default
+      y_axis_tick_density_custom: 5
+      show_x_axis_label: false
+      show_x_axis_ticks: true
+      x_axis_scale: auto
+      y_axis_scale_mode: linear
+      ordering: none
+      show_null_labels: false
+      show_totals_labels: false
+      show_silhouette: false
+      totals_color: "#808080"
+      show_null_points: true
+      point_style: none
+      interpolation: linear
+      value_labels: legend
+      label_type: labPer
+      series_types: {}
+      hidden_series: []
+      x_axis_label: Product ID
+      hidden_points_if_no: [yesno]
+      listen:
+        date_range: online_store_sessions.session_started_date
+        new_vs_returning: online_store_sessions.new_vs_returning
+        device: online_store_sessions.ua_form_factor
+        traffic_source: online_store_sessions.referrer_source
+        shop_name: shops.shop_name
