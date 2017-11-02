@@ -1,6 +1,6 @@
 # Overview
 
-Looker is a powerful BI tool that allows users to build, analyze, and share real-time data. Meaning, once your data is synced into this block, the data visualizations will always be current and manipulated as needed. This is useful for two primary reasons, first the data is presented in a readable form and allows straightforward analysis. And secondly, it will empower your company to understand user behavior, where sales are coming from, and inventory trends. This block is intended to cover three use cases:
+Looker is a powerful BI tool that allows users to build, analyze, and share real-time data. Meaning, once your data is synced into this block, the data visualizations will always be current and manipulated as needed. This is useful for two primary reasons, first the data is presented in a readable form and allows straightforward analysis. And secondly, it will empower your company to understand user behavior, sales trends, and inventory flows. This block is intended to cover three use cases:
 
 ### Traffic Summary
 * This answers how users are behaving on your site, such as: how many are visiting and of that amount, how many are new users or repeated users?
