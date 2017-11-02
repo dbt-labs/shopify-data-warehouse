@@ -5,4 +5,4 @@ Documentation is found in the included markdown files and linked below:
 
 1. [Necessary Customizations](customizations.md)
 
-1. [Implementing Looker Block](implementing-instructions.md)
+1. [Implementing Looker Block](implementing-looker-block.md)
