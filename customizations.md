@@ -1,5 +1,5 @@
 # Customizations
-Based on your company, there are essential customizations that you need to make dependent on your preferences and location. 
+Based on your company, there are essential customizations that depend on your preferences and location. 
 
 
 ### Timezone
