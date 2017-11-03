@@ -102,7 +102,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       hidden_fields: [last_week_sessions]
       comparison_label: week-over-week
@@ -165,7 +165,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       hidden_fields: [last_week_sessions, last_week]
       comparison_label: week-over-week
@@ -229,7 +229,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       hidden_fields: [last_week_sessions, last_week]
       comparison_label: week-over-week
@@ -301,7 +301,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       hidden_fields: [online_store_sessions.sessions, online_store_sessions.count_of_orders_completed,
         online_store_sessions.session_started_week, last_week]
@@ -356,12 +356,13 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types:
         median: area
       hidden_series: [Game console, Unknown]
       series_colors:
         median: "#e4e7e0"
+        online_store_sessions.sessions: "#EEC200"
       series_labels:
         median: below median
       focus_on_hover: false
@@ -414,6 +415,12 @@
       table_theme: editable
       series_types: {}
       hidden_series: [email]
+      series_colors:
+        Direct - online_store_sessions.sessions: "#43467F"
+        Email - online_store_sessions.sessions: "#007ACE"
+        Search - online_store_sessions.sessions: "#EEC200"
+        Social - online_store_sessions.sessions: "#50B83C"
+        Unknown - online_store_sessions.sessions: "#47C1BF"
       listen:
         date_range: online_store_sessions.session_started_date
         new_vs_returning: online_store_sessions.new_vs_returning
@@ -456,7 +463,7 @@
       show_totals_labels: false
       show_silhouette: false
       truncate_column_names: true
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       series_labels:
       series_name: Sessions
@@ -507,8 +514,15 @@
       show_silhouette: false
       truncate_column_names: true
       series_name: Session Started Date
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
+      series_colors:
+        Desktop - online_store_sessions.sessions: "#1C2260"
+        Game Console - online_store_sessions.sessions: "#007ACE"
+        Mobile - online_store_sessions.sessions: "#EEC200"
+        Smart TV - online_store_sessions.sessions: "#50B83C"
+        Tablet - online_store_sessions.sessions: "#47C1BF"
+        Unknown - online_store_sessions.sessions: "#5C6AC4"
       hidden_series: [Game console, Unknown]
       listen:
         date_range: online_store_sessions.session_started_date
@@ -516,8 +530,6 @@
         new_vs_returning: online_store_sessions.new_vs_returning
         traffic_source: online_store_sessions.referrer_source
         shop_name: shops.shop_name
-
-
 
     - name: new_vs_returning_sessions
       title: New vs Returning Sessions
@@ -556,11 +568,13 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       series_types: {}
       inner_radius: 60
       colors: 'palette: Looker Classic'
-      series_colors: {}
+      series_colors:
+        returning: "#EEC200"
+        new: "#007ACE"
       listen:
         date_range: online_store_sessions.session_started_date
         new_vs_returning: online_store_sessions.new_vs_returning
@@ -608,7 +622,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       query_timezone: America/New_York
       show_null_points: true
       point_style: none
@@ -619,6 +633,12 @@
       hide_row_totals: false
       table_theme: editable
       series_types: {}
+      series_colors:
+        Direct - conversion_rate: "#1C2260"
+        Email - conversion_rate: "#007ACE"
+        Search - conversion_rate: "#EEC200"
+        Social - conversion_rate: "#50B83C"
+        Unknown - conversion_rate: "#47C1BF"
       hidden_series: [email]
       hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
       listen:
@@ -668,7 +688,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       query_timezone: America/New_York
       show_null_points: true
       point_style: none
@@ -680,6 +700,13 @@
       table_theme: editable
       series_types: {}
       hidden_series: [email]
+      series_colors:
+        Desktop - conversion_rate: "#1C2260"
+        Game Console - conversion_rate: "#007ACE"
+        Mobile - conversion_rate: "#EEC200"
+        Smart TV - conversion_rate: "#50B83C"
+        Tablet - conversion_rate: "#47C1BF"
+        Unknown - conversion_rate: "#5C6AC4"
       hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
       listen:
         date_range: online_store_sessions.session_started_date
@@ -726,7 +753,7 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       show_null_points: true
       point_style: none
       interpolation: linear
@@ -783,13 +810,15 @@
       show_null_labels: false
       show_totals_labels: false
       show_silhouette: false
-      totals_color: "#808080"
+      totals_color: "#1C2260"
       show_null_points: true
       point_style: none
       interpolation: linear
       value_labels: legend
       label_type: labPer
       series_types: {}
+      series_colors:
+       online_store_sessions.sessions: "#EEC200"
       hidden_series: []
       x_axis_label: Product ID
       hidden_points_if_no: [yesno]

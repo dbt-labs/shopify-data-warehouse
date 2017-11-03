@@ -27,6 +27,12 @@
     type: field_filter
     explore: sales
     field: shops.shop_name
+  - name: new_or_repeat
+    title: 'New or Repeating Users'
+    type: field_filter
+    explore: sales
+    field: orders.new_vs_repeat
+    default_value: 'new'
 
   elements:
   - name: total_orders
@@ -80,13 +86,15 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
+
 
   - name: total_revenue
     title: Total Revenue
@@ -139,13 +147,14 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name:  total_customers
     title: Total Customers
@@ -198,13 +207,14 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [last_month]
     comparison_label: month-over-month
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: items_per_order
     title: Avg Items per Order
@@ -262,13 +272,14 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [sales.order_items, orders.count, last_month]
     comparison_label: month-over-month
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: avg_order_value
     title: Avg Order Value
@@ -323,7 +334,7 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [last_month]
     comparison_label: month-over-month
@@ -332,6 +343,7 @@
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: avg_customer_value
     title: Avg Customer Value
@@ -389,13 +401,14 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     hidden_fields: [orders.order_value, orders.count_customers, last_month]
     comparison_label: month-over-month
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: sales_and_orders_over_time
     title: Sales & Orders Over Time
@@ -431,7 +444,7 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
     y_axes: [{label: '', maxValue: !!null '', minValue: !!null '', orientation: left,
         showLabels: true, showValues: true, tickDensity: default, tickDensityCustom: 5,
@@ -446,6 +459,7 @@
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
 
   - name: avg_order_value_over_time
@@ -470,10 +484,11 @@
     stacking: ''
     hidden_fields: [orders.count, sales.gross_sales_total]
     series_colors:
-    avg_order_value: "#85BB6D"
+    avg_order_value: "#1C2260"
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: top_products_units
     title: Top Products by Units Sold
@@ -515,19 +530,22 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     show_null_points: true
     point_style: none
     interpolation: linear
     value_labels: legend
     label_type: labPer
     series_types: {}
+    series_colors:
+      sales.order_items: "#EEC200"
     hidden_series: []
     x_axis_label: Product ID
     hidden_points_if_no: [yesno]
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: top_products_gross
     title: Top Products by Gross Sale
@@ -569,19 +587,22 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     show_null_points: true
     point_style: none
     interpolation: linear
     value_labels: legend
     label_type: labPer
     series_types: {}
+    series_colors:
+      sales.gross_sales_total: "#EEC200"
     hidden_series: []
     x_axis_label: Product ID
     hidden_points_if_no: [yesno]
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat
 
   - name: new_vs_repeat_pie
     title: New vs Repeat Customers
@@ -618,8 +639,11 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
+    series_colors:
+      repeat: "#EEC200"
+      new: "#007ACE"
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
@@ -658,8 +682,11 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
+    totals_color: "#1C2260"
     series_types: {}
+    series_colors:
+     new - orders.count: "#EEC200"
+     repeat - orders.count: "#007ACE"
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
@@ -708,7 +735,9 @@
     orientation: automatic
     groupBars: true
     showLegend: true
-    series_colors: {}
+    series_colors:
+      orders.avg_order_value: "#EEC200"
+      avg_order_items: "#007ACE"
     x_axis_label: New vs Repeat
     y_axes: [{label: '',
               maxValue: !!null '',
@@ -741,3 +770,4 @@
     listen:
       date_range: orders.processed_month
       shop_name: shops.shop_name
+      new_or_repeat: orders.new_vs_repeat

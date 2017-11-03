@@ -1,3 +1,5 @@
+# This explore allows you to view your inventory flow and net changes over time
+
 # Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/inventory_adjustments
 
 view: inventory_adjustments {
