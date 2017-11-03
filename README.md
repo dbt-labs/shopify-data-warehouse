@@ -1,4 +1,4 @@
-# Looker Block
+# Shopify Data Warehouse Looker Block
 Documentation is found in the included markdown files and linked below:
 
 1. [Overview](overview.md)
