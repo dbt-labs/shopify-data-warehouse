@@ -17,4 +17,6 @@ This block is intended to cover three use cases:
 * See the buying behaviors of new and repeated customers
 
 ### Inventory Trends / Logs
-* See current days of inventory available by variant.
+* Reference docs [here](https://help.shopify.com/api/data-warehouse/schema-reference/inventory_adjustments) and [here](https://help.shopify.com/api/data-warehouse/schema-reference/inventory_items_snapshot)
+* See inventory flows over time and net changes
+* See current days of inventory available by variant
