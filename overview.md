@@ -13,11 +13,8 @@ This block is intended to cover three use cases:
 ### Sales Summary
 * Reference docs [here](https://help.shopify.com/api/data-warehouse/schema-reference/sales) and [here](https://help.shopify.com/api/data-warehouse/schema-reference/orders)
 * Shows an overview of sales and orders trends and overall averages of items ordered, order value, etc.
-* See totals for items that should be top of mind, such as Shopify Baseball Bomber Grey
+* See totals for items that should be top of mind
 * See the buying behaviors of new and repeated customers
 
 ### Inventory Trends / Logs
-* Reference docs [here](https://help.shopify.com/api/data-warehouse/schema-reference/inventory_adjustments) and [here](https://help.shopify.com/api/data-warehouse/schema-reference/inventory_items_snapshot)
-* See inventory flows over time and net changes
-* See what your inventory flows are by product and variant
-* See inventory logs to scope a full audit and to look for current levels
+* See current days of inventory available by variant.
