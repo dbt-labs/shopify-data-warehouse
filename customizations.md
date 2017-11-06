@@ -3,7 +3,7 @@ Based on your company, there are essential customizations that depend on your pr
 
 
 ### Timezone
-Set a timezone in your Looker Admin located at the top right corner. Scheduled Looks will be run in the time zone of your choosing. To set a database querying time zone, you’ll have to go into Connections on the sidebar.
+All timestamps loaded into your data warehouse from Shopify are in UTC. Make sure to set the appropriate [database time zone](https://docs.looker.com/admin-options/database/connections#database_time_zone) when setting up your connection.
 
 ### Local Currency
 In the [model file](https://github.com/fishtown-analytics/shopify-data-warehouse/compare/12/shopify.model.lkml?expand=1#L7), specify a [currency format string](https://docs.looker.com/reference/model-params/named_value_format) for your local currency.
