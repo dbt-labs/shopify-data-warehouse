@@ -2,7 +2,7 @@
 
 Looker is a powerful BI tool that allows users to build, analyze, and share real-time data. Meaning, once your data is synced into this block, the data visualizations will always be current and manipulated as needed. This is useful for two primary reasons, first the data is presented in a readable form and allows straightforward analysis. And secondly, it will empower your company to understand user on-site behavior, sales trends, and inventory flows on a high level. Shopify's overall schema reference can be viewed [here](https://help.shopify.com/api/data-warehouse/schema-reference).
 
-This block is intended to cover three use cases:
+While the views cover all of the currently available objects in the Shopify Data Warehouse schema, the dashboards in this block are intended to cover three specific use cases:
 
 ### Traffic Summary
 * [Reference docs](https://help.shopify.com/api/data-warehouse/schema-reference/online_store_sessions)
