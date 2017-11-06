@@ -1,3 +1,5 @@
+# This explore allows you to view user on-site behavior, such as how many visited, how long were they engaged, etc
+
 # Docs here: https://help.shopify.com/api/data-warehouse/schema-reference/online_store_sessions
 
 view: online_store_sessions {

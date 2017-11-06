@@ -1,3 +1,6 @@
+# This explore allows you to view your current inventory levels to date
+
+
 view: current_inventory {
   derived_table: {
     sql:
