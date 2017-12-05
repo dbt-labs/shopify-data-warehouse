@@ -93,27 +93,27 @@ view: online_store_sessions {
 
   dimension: utm_medium {
     type: string
-    sql: ${TABLE}.campaign_medium ;;
+    sql: ${TABLE}.utm_campaign_medium ;;
   }
 
   dimension: utm_source {
     type: string
-    sql: ${TABLE}.campaign_source ;;
+    sql: ${TABLE}.utm_campaign_source ;;
   }
 
   dimension: utm_campaign {
     type: string
-    sql: ${TABLE}.campaign_name ;;
+    sql: ${TABLE}.utm_campaign ;;
   }
 
   dimension: utm_term {
     type: string
-    sql: ${TABLE}.campaign_term ;;
+    sql: ${TABLE}.utm_campaign_term ;;
   }
 
   dimension: utm_content {
     type: string
-    sql: ${TABLE}.campaign_content ;;
+    sql: ${TABLE}.utm_campaign_content ;;
   }
 
   # Referrer -------------------------------------------------------------------
