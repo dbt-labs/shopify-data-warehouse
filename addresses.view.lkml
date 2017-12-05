@@ -61,7 +61,7 @@ view: addresses {
 
   dimension: province {
     type: string
-    sql: ${TABLE}.province ;;
+    sql: ${TABLE}.region ;;
   }
 
   dimension: country {
