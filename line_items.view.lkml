@@ -41,17 +41,17 @@ view: line_items {
 
   dimension: name {
     type: string
-    sql: ${TABLE}.name ;;
+    sql: ${TABLE}.title ;;
   }
 
   dimension: title {
     type: string
-    sql: ${TABLE}.title ;;
+    sql: ${TABLE}.product_title ;;
   }
 
   dimension: variant_title {
     type: string
-    sql: ${TABLE}.variant_title ;;
+    sql: ${TABLE}.product_variant_title ;;
   }
 
   dimension: sku {
