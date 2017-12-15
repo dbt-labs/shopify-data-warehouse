@@ -7,6 +7,8 @@ named_value_format: local_currency {
   value_format: "$0.00"
 }
 
+explore: customers {}
+
 explore: sales {
   always_filter: {
     filters: {

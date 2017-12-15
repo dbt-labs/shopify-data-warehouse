@@ -36,11 +36,6 @@ view: customers {
     sql: ${TABLE}.email ;;
   }
 
-  dimension: verified_email {
-    type: yesno
-    sql: ${TABLE}.verified_email ;;
-  }
-
   dimension: phone {
     type: string
     sql: ${TABLE}.phone ;;
@@ -78,9 +73,17 @@ view: customers {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: customer_created_month {
+  dimension: customer_first_order_month {
+    label: "Customer Lifetime Month"
     type: date
-    sql: ${created_month} ;;
+    sql: date_trunc('month', ${first_order_raw}) ;;
+    hidden: yes
+  }
+
+  dimension: customer_first_order_quarter {
+    label: "Customer Lifetime Quarter"
+    type: date
+    sql: date_trunc('quarter', ${first_order_raw}) ;;
     hidden: yes
   }
 
@@ -112,14 +115,16 @@ view: customers {
     sql: ${TABLE}.last_order_date ;;
   }
 
+  # Marketing -------------------------------------------------------------------
+
+  dimension: verified_email {
+    type: yesno
+    sql: ${TABLE}.verified_email ;;
+  }
+
   dimension: accepts_marketing {
     type: yesno
     sql: ${TABLE}.accepts_marketing ;;
-  }
-
-  dimension: at_risk {
-    type: yesno
-    sql: ${TABLE}.at_risk ;;
   }
 
 
@@ -128,50 +133,108 @@ view: customers {
   dimension: dormant {
     type: yesno
     sql: ${TABLE}.dormant ;;
+    group_label: "Tags"
+  }
+
+  dimension: at_risk {
+    type: yesno
+    sql: ${TABLE}.at_risk ;;
+    group_label: "Tags"
   }
 
   dimension: loyal {
     type: yesno
     sql: ${TABLE}.loyal ;;
+    group_label: "Tags"
   }
 
   dimension: new {
     type: yesno
     sql: ${TABLE}."new" ;;
+    group_label: "Tags"
   }
 
   dimension: promising {
     type: yesno
     sql: ${TABLE}.promising ;;
+    group_label: "Tags"
   }
 
   dimension: returning {
     type: yesno
     sql: ${TABLE}.returning ;;
+    group_label: "Tags"
   }
 
   # Predictions -------------------------------------------------------------------
 
-  dimension: expected_purchase_value_in_next_30_days {
+  dimension: expected_purchase_value_in_next_30_days_amt {
     type: number
     sql: ${TABLE}.expected_purchase_value_in_next_30_days ;;
     value_format_name: local_currency
+    hidden: yes
   }
 
-  dimension: predicted_average_number_of_days_between_orders {
+  dimension: predicted_average_number_of_days_between_orders_amt {
     type: number
     sql: ${TABLE}.predicted_average_number_of_days_between_orders ;;
+    hidden: yes
   }
 
-  dimension: probability_of_returning {
+  dimension: probability_of_returning_amt {
     type: number
     sql: ${TABLE}.probability_of_returning ;;
+    hidden: yes
   }
 
   # Measures -------------------------------------------------------------------
 
   measure: count {
     type: count
+    drill_fields: [customer_details*]
+  }
+
+  measure: total_expected_purchase_value_in_next_30_days {
+    type: sum
+    sql: ${expected_purchase_value_in_next_30_days_amt} ;;
+    value_format_name: usd
+  }
+
+  measure: average_expected_purchase_value_in_next_30_days {
+    type: average
+    sql: ${expected_purchase_value_in_next_30_days_amt} ;;
+    value_format_name: usd
+  }
+
+  measure: probability_of_returning {
+    type: average
+    sql: ${probability_of_returning_amt} ;;
+    value_format_name: percent_1
+  }
+
+  measure: predicted_average_number_of_days_between_orders {
+    type: average
+    sql: ${predicted_average_number_of_days_between_orders_amt} ;;
+    value_format_name: decimal_1
+  }
+
+  measure: percent_repeat_customers {
+    type: average
+    sql: case when ${returning} = true then 1::float else 0::float end ;;
+    value_format_name: percent_1
+  }
+
+  # Sets -------------------------------------------------------------------
+
+  set: customer_details {
+    fields: [
+      first_name,
+      last_name,
+      email,
+      country,
+      created_date,
+      last_order_date
+    ]
   }
 
 }
