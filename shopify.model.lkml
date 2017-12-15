@@ -107,3 +107,12 @@ explore: online_store_sessions {
     relationship: many_to_one
   }
 }
+
+explore: order_attribution_interactions {
+  join: orders {
+    sql_on: ${order_attribution_interactions.order_id} = ${orders.order_id} ;;
+    type: inner
+    relationship: many_to_one
+    fields: []
+  }
+}
