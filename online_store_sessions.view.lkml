@@ -424,4 +424,68 @@ view: online_store_sessions {
     sql: ${bounced_sessions}::float / nullif(${sessions}, 0) ;;
     value_format_name: percent_1
   }
+
+  measure: sessions_with_cart_adds {
+    type: sum
+    sql: case when ${count_of_cart_additions} > 0 then 1 else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "Funnel"
+  }
+
+  measure: sessions_with_checkouts {
+    type: sum
+    sql: case when ${hit_first_checkout_raw} is not null and ${count_of_cart_additions} > 0 then 1 else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "Funnel"
+  }
+
+  measure: sessions_with_orders {
+    type: sum
+    sql: case when ${completed_first_order_raw} is not null then 1 else 0 end ;;
+    value_format_name: decimal_0
+    group_label: "Funnel"
+  }
+
+  measure: sessions_with_cart_adds_conversion_rate {
+    type: number
+    sql: ${sessions_with_cart_adds}::float / nullif(${sessions}, 0) ;;
+    value_format_name: percent_2
+    group_label: "Funnel"
+  }
+
+  measure: cart_add_to_checkout_conversion_rate {
+    type: number
+    sql: ${sessions_with_checkouts}::float / nullif(${sessions_with_cart_adds}, 0) ;;
+    value_format_name: percent_2
+    group_label: "Funnel"
+  }
+
+  measure: sessions_with_checkouts_conversion_rate {
+    type: number
+    sql: ${sessions_with_checkouts}::float / nullif(${sessions}, 0) ;;
+    value_format_name: percent_2
+    group_label: "Funnel"
+  }
+
+  measure: checkout_to_order_conversion_rate {
+    type: number
+    sql: ${sessions_with_orders}::float / nullif(${sessions_with_checkouts}, 0) ;;
+    value_format_name: percent_2
+    group_label: "Funnel"
+  }
+
+  measure: sessions_with_orders_conversion_rate {
+    type: number
+    sql: ${sessions_with_orders}::float / nullif(${sessions}, 0) ;;
+    value_format_name: percent_2
+    group_label: "Funnel"
+  }
+
+
+
+
+
+
+
+
 }

@@ -284,131 +284,185 @@ view: sales {
     group_label: "Other"
   }
 
-  dimension: customer_created_month {
+  dimension: customer_first_order_month {
     type: string
-    sql:  ${customers.customer_created_month} ;;
+    sql:  ${customers.customer_first_order_month} ;;
+    group_label: "Other"
+  }
+
+  dimension: customer_first_order_quarter {
+    type: string
+    sql:  ${customers.customer_first_order_quarter} ;;
     group_label: "Other"
   }
 
   dimension: months_from_start {
-    hidden: yes
     type: number
-    sql: datediff(month,${orders.processed_date},${customers.customer_created_month}) ;;
+    sql: datediff(month, ${customers.customer_first_order_month}, ${orders.processed_date}) ;;
     group_label: "Other"
   }
 
 # Measures -------------------------------------------------------------------
 
-  measure: order_items {
-    type: count
-  }
+# Local Currency -------------------------------------------------------------------
 
   measure: discounts_total {
     type: sum
     sql: ${TABLE}.discounts ;;
     value_format_name: local_currency
-  }
-
-  measure: discounts_total_fx {
-    type: sum
-    sql: ${TABLE}.discounts_fx ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: gift_card_discounts_total {
     type: sum
     sql: ${TABLE}.gift_card_discounts ;;
     value_format_name: local_currency
-  }
-
-  measure: gift_card_discounts_total_fx {
-    type: sum
-    sql: ${TABLE}.gift_card_discounts_fx ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: gift_card_gross_sales_total {
     type: sum
     sql: ${TABLE}.gift_card_gross_sales ;;
     value_format_name: local_currency
-  }
-
-  measure: gift_card_gross_sales_total_fx {
-    type: sum
-    sql: ${TABLE}.gift_card_gross_sales_fx ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: gift_cards_issued_total {
     type: sum
     sql: ${TABLE}.gross_sales ;;
     value_format_name: local_currency
+    group_label: "Local Currency"
   }
-
-  measure: gift_cards_issued_total_fx {
-    type: sum
-    sql: ${TABLE}.gross_sales_fx ;;
-    value_format_name: usd
-}
 
   measure: net_sales_total {
     type: sum
     sql: ${TABLE}.net_sales ;;
     value_format_name: local_currency
-  }
-
-  measure: net_sales_total_fx {
-    type: sum
-    sql: ${TABLE}.net_sales_fx ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: returns_total {
     type: sum
     sql: ${TABLE}.returns ;;
     value_format_name: local_currency
-  }
-
-  measure: returns_total_fx {
-    type: sum
-    sql: ${TABLE}.returns_xf ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: taxes_total {
     type: sum
     sql: ${TABLE}.taxes ;;
     value_format_name: local_currency
-  }
-
-  measure: taxes_total_xf {
-    type: sum
-    sql: ${TABLE}.taxes_xf ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: shipping_total {
     type: sum
     sql: ${TABLE}.shipping ;;
     value_format_name: local_currency
-  }
-
-  measure: shipping_total_xf {
-    type: sum
-    sql: ${TABLE}.shipping_xf ;;
-    value_format_name: usd
+    group_label: "Local Currency"
   }
 
   measure: gross_sales_total {
     type: sum
     sql: ${TABLE}.gross_sales ;;
     value_format_name: local_currency
+    group_label: "Local Currency"
+  }
+
+# FX -------------------------------------------------------------------
+
+  measure: discounts_total_fx {
+    type: sum
+    sql: ${TABLE}.discounts_fx ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: gift_card_discounts_total_fx {
+    type: sum
+    sql: ${TABLE}.gift_card_discounts_fx ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: gift_card_gross_sales_total_fx {
+    type: sum
+    sql: ${TABLE}.gift_card_gross_sales_fx ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: gift_cards_issued_total_fx {
+    type: sum
+    sql: ${TABLE}.gross_sales_fx ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: net_sales_total_fx {
+    type: sum
+    sql: ${TABLE}.net_sales_fx ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: returns_total_fx {
+    type: sum
+    sql: ${TABLE}.returns_xf ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: taxes_total_xf {
+    type: sum
+    sql: ${TABLE}.taxes_xf ;;
+    value_format_name: usd
+    group_label: "FX"
+  }
+
+  measure: shipping_total_xf {
+    type: sum
+    sql: ${TABLE}.shipping_xf ;;
+    value_format_name: usd
+    group_label: "FX"
   }
 
   measure: gross_sales_total_fx {
     type: sum
     sql: ${TABLE}.gross_sales_fx ;;
     value_format_name: usd
+    group_label: "FX"
+  }
+
+  # Counts -------------------------------------------------------------------
+
+  measure: order_items {
+    type: count
+    group_label: "Counts"
+  }
+
+  measure: orders {
+    type: count_distinct
+    sql: ${order_id} ;;
+    group_label: "Counts"
+  }
+
+  measure: customers {
+    type: count_distinct
+    sql: ${customer_id} ;;
+    group_label: "Counts"
+  }
+
+  set: customer_details {
+    fields: [
+      customers.first_name,
+      customers.last_name,
+      customers.email,
+      customers.country,
+      customers.created_date,
+      customers.last_order_date,
+      gross_sales_total
+    ]
   }
 
 }

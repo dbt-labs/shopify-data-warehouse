@@ -246,7 +246,7 @@
       model: shopify
       explore: online_store_sessions
       type: single_value
-      fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions,
+      fields: [online_store_sessions.sessions_with_orders, online_store_sessions.sessions,
         online_store_sessions.session_started_week]
       fill_fields: [online_store_sessions.session_started_week]
       sorts: [online_store_sessions.session_started_week desc]
@@ -254,7 +254,7 @@
       dynamic_fields:
       - table_calculation: conversion_rate
         label: conversion_rate
-        expression: "${online_store_sessions.count_of_orders_completed}/${online_store_sessions.sessions}"
+        expression: "${online_store_sessions.sessions_with_orders}/${online_store_sessions.sessions}"
         value_format:
         value_format_name: percent_2
         _kind_hint: measure
@@ -303,7 +303,7 @@
       show_silhouette: false
       totals_color: "#1C2260"
       series_types: {}
-      hidden_fields: [online_store_sessions.sessions, online_store_sessions.count_of_orders_completed,
+      hidden_fields: [online_store_sessions.sessions, online_store_sessions.sessions_with_orders,
         online_store_sessions.session_started_week, last_week]
       comparison_label: week-over-week
       filters:
@@ -587,7 +587,7 @@
       model: shopify
       explore: online_store_sessions
       type: looker_column
-      fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions,
+      fields: [online_store_sessions.sessions_with_orders, online_store_sessions.sessions,
         online_store_sessions.referrer_source]
       pivots: [online_store_sessions.referrer_source]
       sorts: [online_store_sessions.referrer_source]
@@ -596,7 +596,7 @@
       dynamic_fields:
       - table_calculation: conversion_rate
         label: Conversion Rate
-        expression: "${online_store_sessions.count_of_orders_completed}/${online_store_sessions.sessions}"
+        expression: "${online_store_sessions.sessions_with_orders}/${online_store_sessions.sessions}"
         value_format:
         value_format_name: percent_2
         _kind_hint: measure
@@ -640,7 +640,7 @@
         Social - conversion_rate: "#50B83C"
         Unknown - conversion_rate: "#47C1BF"
       hidden_series: [email]
-      hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
+      hidden_fields: [online_store_sessions.sessions_with_orders, online_store_sessions.sessions]
       listen:
         date_range: online_store_sessions.session_started_date
         new_vs_returning: online_store_sessions.new_vs_returning
@@ -653,7 +653,7 @@
       model: shopify
       explore: online_store_sessions
       type: looker_column
-      fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions,
+      fields: [online_store_sessions.sessions_with_orders, online_store_sessions.sessions,
         online_store_sessions.ua_form_factor]
       pivots: [online_store_sessions.ua_form_factor]
       sorts: [online_store_sessions.ua_form_factor]
@@ -662,7 +662,7 @@
       dynamic_fields:
       - table_calculation: conversion_rate
         label: Conversion Rate
-        expression: "${online_store_sessions.count_of_orders_completed}/${online_store_sessions.sessions}"
+        expression: "${online_store_sessions.sessions_with_orders}/${online_store_sessions.sessions}"
         value_format:
         value_format_name: percent_2
         _kind_hint: measure
@@ -707,7 +707,7 @@
         Smart TV - conversion_rate: "#50B83C"
         Tablet - conversion_rate: "#47C1BF"
         Unknown - conversion_rate: "#5C6AC4"
-      hidden_fields: [online_store_sessions.count_of_orders_completed, online_store_sessions.sessions]
+      hidden_fields: [online_store_sessions.sessions_with_orders, online_store_sessions.sessions]
       listen:
         date_range: online_store_sessions.session_started_date
         new_vs_returning: online_store_sessions.new_vs_returning
