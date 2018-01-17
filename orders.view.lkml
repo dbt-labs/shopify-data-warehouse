@@ -80,7 +80,7 @@ view: orders {
     group_label: "Dates"
   }
 
-  dimension_group: cancelled {
+  dimension_group: canceled {
     type: time
     timeframes: [
       raw,
@@ -91,7 +91,7 @@ view: orders {
       quarter,
       year
     ]
-    sql: ${TABLE}.cancelled_at ;;
+    sql: ${TABLE}.canceled_at ;;
     group_label: "Dates"
   }
 
